@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
-import SolanaSharedWalletABI from '../artifacts/SolanaSharedWallet.json'; // Adjust path as necessary
+import SolanaSharedWalletABI from '../artifacts/contracts/SolanaSharedWallet.sol/SolanaSharedWallet.json'; // Adjust path as necessary
 
 const OwnerDashboard = ({ walletAddress }) => {
     const [tradeAmount, setTradeAmount] = useState('');
@@ -10,12 +10,12 @@ const OwnerDashboard = ({ walletAddress }) => {
     const handleTrade = async () => {
         if (!tradeAmount || !tradeDetails) return;
 
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
+        const provider = new ethers.BrowserProvider(window.ethereum); // Updated for v6
+        const signer = await provider.getSigner();
         const contract = new ethers.Contract(contractAddress, SolanaSharedWalletABI.abi, signer);
 
         try {
-            const tx = await contract.trade(ethers.utils.parseEther(tradeAmount), tradeDetails);
+            const tx = await contract.trade(ethers.parseEther(tradeAmount), tradeDetails); // Updated for v6
             await tx.wait();
             alert('Trade successful!');
         } catch (error) {

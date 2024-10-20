@@ -1,13 +1,9 @@
-// scripts/deploy.js
-
 const { ethers } = require("hardhat");
 
 async function main() {
     const [deployer] = await ethers.getSigners();
   
-    console.log("Deploying contracts with the account:", deployer.address);
-  
-    console.log("Account balance:", (await deployer.getBalance()).toString());
+    console.log("Deploying SolanaSharedWallet with the account:", deployer.address);
   
     const SolanaSharedWallet = await ethers.getContractFactory("SolanaSharedWallet");
     const wallet = await SolanaSharedWallet.deploy();
@@ -20,6 +16,6 @@ async function main() {
 main()
   .then(() => process.exit(0))
   .catch(error => {
-    console.error("Error deploying contract:", error);
+    console.error("Error deploying SolanaSharedWallet contract:", error);
     process.exit(1);
   });

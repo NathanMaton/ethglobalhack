@@ -7,7 +7,7 @@ require("dotenv").config();
 
 const { PRIVATE_KEY, NEON_TESTNET_RPC_URL, NEON_API_KEY, ETHERSCAN_API_KEY } = process.env;
 
-// Remove debugging logs after verification
+// // Remove debugging logs after verification
 // console.log("PRIVATE_KEY:", PRIVATE_KEY ? "Loaded" : "Not Loaded");
 // console.log("NEON_TESTNET_RPC_URL:", NEON_TESTNET_RPC_URL);
 

@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ethers } from 'ethers';
-import SolanaSharedWalletABI from '../artifacts/SolanaSharedWallet.json'; // Adjust path as necessary
+import SolanaSharedWalletABI from '../artifacts/contracts/SolanaSharedWallet.sol/SolanaSharedWallet.json'; // Adjust path as necessary
 
 const ContributorDashboard = ({ walletAddress }) => {
     const contractAddress = '0xYourContractAddress'; // Replace with your deployed contract address
 
     const handleWithdraw = async () => {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
+        const provider = new ethers.BrowserProvider(window.ethereum); // Updated for v6
+        const signer = await provider.getSigner();
         const contract = new ethers.Contract(contractAddress, SolanaSharedWalletABI.abi, signer);
 
         try {
-            const tx = await contract.withdraw();
+            const tx = await contract.withdraw(); // Call withdraw function
             await tx.wait();
             alert('Withdrawal successful!');
         } catch (error) {

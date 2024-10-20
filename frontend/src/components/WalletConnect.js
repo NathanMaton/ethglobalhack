@@ -8,9 +8,11 @@ const WalletConnect = ({ setWalletAddress }) => {
         if (window.ethereum) {
             try {
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                setWalletAddress(accounts[0]);
+                console.log("Connected account:", accounts[0]); // Log the connected account
+                setWalletAddress(accounts[0]); // Update the wallet address in App.js
                 setError('');
             } catch (err) {
+                console.error("Connection error:", err); // Log any errors
                 setError('Failed to connect wallet');
             }
         } else {
